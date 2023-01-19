@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{{error}}
+<span>{{message}}</span>
+<section class="d-flex flex-row justify-content-left alig-items-center">
+    <form method="POST">
+        {% csrf_token %}
+        <table>
+            {{form.as_table}}
+        </table>
+        <button>Save pays</button>
+    </form>
+</section>
+<section>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Gasto</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Pagar o No Pagar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for payout in payouts %}
+            {%if payout.status %}
+            <tr style="color:gray">
+                {% else %}
+            <tr style="color:black">
+                {% endif %}
+                <td>{{payout.pay_title}}</td>
+                <td>{{payout.price}}</td>
+                <td>{%if payout.status is False %}No pagado{% else %} Pagado {% endif %}</td>
+                <td><a href="/complete_payouts/{{id_group}}/{{payout.id}}">Pago/No Pago</a></td>
+                <td><span></span></td>
+                <td><span></span></td>
+                <td><a href="/delete_payouts/{{id_group}}/{{payout.id}}">Eliminar</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+<ul style="text-align: left; margin-top: 20px; color: red;">
+    {% if alerta %}
+    <li>{{alerta}}</li>
+    {%endif%}
+</ul>
+<footer>
+    <h4>Total desde el presupuesto inicial: {{total}}</h4>
+</footer>
+<style>
+    input,
+    label,
+    button {
+        margin: 10px 0 10px 10px;
+    }
+
+    td a {
+        color: black;
+        text-decoration: none;
+        padding: 5px 4px;
+        border: black 1px solid;
+        min-width: 100px;
+    }
+</style>
+{% endblock %}

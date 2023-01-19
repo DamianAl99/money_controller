@@ -1,0 +1,60 @@
+{% extends 'base.html' %} {% block content %}
+<img
+  src="https://img.freepik.com/foto-gratis/arreglo-elementos-financieros-calculadora-bloc-notas-vacio_23-2148749474.jpg?w=1060&t=st=1674098292~exp=1674098892~hmac=9e56d6aa429a06a12079046aec5ed75a6a0585f43218d59c1d42d71bc6cb0c4d"
+  alt="">
+<div>
+  <h1>Home</h1>
+  <p>Esta app web te ayudará a llevar tus cuentas, ya sea guardando los ingresos, guardando los gastos
+    tambien ayudandote a decifrar la situacion del presupuesto creado y tambien te dara
+    recomendaciones financieras que se ajusten a tus cuentas
+  </p>
+  <div class="btnn">
+    <a href="/groups" class="nav-link">Grupos</a>
+    <a href="/create_groups/999" class="nav-link">Crear Grupos</a>
+  </div>
+</div>
+<style>
+  img {
+    overflow: hidden;
+    position: absolute;
+    z-index: -2;
+    width: 100%;
+    height: 100%;
+  }
+
+  div {
+    background: rgba(10, 10, 10, .5);
+    color: white;
+    width: 80%;
+    margin: auto;
+  }
+
+  h1 {
+    text-align: center;
+    margin-top: 40px;
+  }
+
+  p {
+    text-align: center;
+  }
+
+  .btnn {
+    width: 80%;
+    margin-left: 10%;
+    background: none;
+  }
+
+  .btnn a {
+    color: white;
+    text-decoration: none;
+    padding: 5px 4px;
+    border: none;
+    min-width: 100px;
+    width: 200px;
+    margin: auto;
+    margin-top: 10px;
+    text-align: center;
+    background: black;
+  }
+</style>
+{% endblock %}

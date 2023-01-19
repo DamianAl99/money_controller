@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Create Groups</h1>
+
+{{error}}
+<form method="POST">
+  {% csrf_token %}
+  <table>
+    {{form.as_table}}
+  </table>
+  <button>Save</button>
+</form>
+<style>
+  input,
+  label,
+  textarea,
+  button {
+    margin: 10px 0 10px 10px;
+  }
+  textarea{
+    height: 50px;
+  }
+  button{
+    width: 100px;
+    border: none;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+</style>
+{% endblock %}
