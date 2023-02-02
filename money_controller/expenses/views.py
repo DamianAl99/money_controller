@@ -25,6 +25,7 @@ def create_payout(request, pk):
         print(((group.budget/100)*10))
         if total<=((group.budget/100)*10):
             message = f"Queda 10% del presupuesto inicial, te recomendamos a partir de ahora agregar los gastos necesarios por prioridad :)"
+        #agregar mas msg de ayudas
         return render(request, 'payouts.html', {"payouts": payout, "form": PayoutForm, "id_group":pk, "total":total, "alerta":message})
     else:
         try:

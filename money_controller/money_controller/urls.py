@@ -1,6 +1,6 @@
 
 from django.contrib import admin
-from payments.views import signin, signup, signout, create_groups, groups_payout, delete_task, task_detail
+from payments.views import signin, signup, signout, create_groups, groups_payout, settings, delete_task, task_detail
 from expenses.views import create_payout, delete_payout, complete_payout
 from .views import go_index
 from django.urls import path, include
@@ -12,6 +12,8 @@ urlpatterns = [
     path('signup/', signup),
     path('logout/', signout),
     path('create_groups/<str:pk>', create_groups, name="create_groups"),
+    path('update-user/', settings, name="update_user"),
+    
     path('delete_groups/<int:pk>', delete_task, name="delete_groups"),
     path('groups/', groups_payout, name="groups"),
     path('payouts/<int:pk>', create_payout, name="payouts"),

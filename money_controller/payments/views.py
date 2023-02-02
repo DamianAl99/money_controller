@@ -46,6 +46,22 @@ def signout(request):
     logout(request)
     return redirect('index')
 
+@login_required 
+def settings(request):
+    if request.method == 'POST':
+        postdata = request.POST.copy()
+        form = UserChangeForm( postdata, instance=request.user )
+        if form.is_valid():
+            form.save()
+            form.clean()
+        return redirect("index")
+    else:
+        form = UserChangeForm(initial={
+            'username':request.user.username,
+            'first_name':request.user.first_name,
+            'last_name':request.user.last_name,
+            })
+        return render(request, 'update.html', {"form": form})
 
 @login_required
 def create_groups(request, pk):
