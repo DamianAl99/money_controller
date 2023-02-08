@@ -19,19 +19,25 @@
           </li>
           {% if user.is_authenticated %}<!--si esta autenticado mostrar los pagos realizados-->
           <li class="nav-item">
-            <a href="/groups" class="nav-link">Grupos</a><!--si esta autenticado mostrar los grupos-->
+            <a href="/groups" class="nav-link">Presupuestos</a><!--si esta autenticado mostrar los grupos-->
           </li>
           <li class="nav-item">
-            <a href="/create_groups/999" class="nav-link">Crear Grupos</a><!--si esta autenticado mostrar los crear grupos-->
+            <a href="/create_groups/999" class="nav-link">Crear Presupuestos</a><!--si esta autenticado mostrar los crear grupos-->
           </li>
           <li class="nav-item">
-            <a href="/update-user/" class="nav-link">Configuraciones</a><!--si esta autenticado mostrar los crear grupos-->
+            <a href="/update_user/" class="nav-link">Configuraciones</a><!--si esta autenticado mostrar los crear grupos-->
+          </li>
+          <li class="nav-item">
+            <a href="/update_profile" class="nav-link">Editar Perfil</a><!--si esta autenticado mostrar los grupos-->
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/logout">Salir<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-right" viewBox="0 0 16 16">
               <path fill-rule="evenodd" d="M6 8a.5.5 0 0 0 .5.5h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L12.293 7.5H6.5A.5.5 0 0 0 6 8Zm-2.5 7a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5Z"/>
             </svg></a><!--si esta autenticado mostrar logout-->
           </li>
+                {% if user.profile.profile_picture != "" %}
+                <div class="pic"><img src="{{user.profile.profile_picture.url}}" alt=""></div>
+                {% endif %}
           {% else %}
           <li class="nav-item">
             <a href="/signin" class="nav-link">Ingresar a Cuenta</a>
@@ -44,3 +50,17 @@
       </div>
     </div>
   </nav>
+  <style>
+    .pic{
+      width: 50px;
+      height: 50px;
+      border-radius: 50px;
+      overflow: hidden;
+      border: 2px solid white;
+    }
+    .pic img{
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+    }
+  </style>

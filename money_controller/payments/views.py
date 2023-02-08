@@ -4,12 +4,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.db import IntegrityError
-from django.contrib import messages
 
 from payments.models import Groups_Pay
 from payments.forms import GroupsForm
-from expenses.models import Payout
-from expenses.forms import PayoutForm
+from user.forms import UserProfileForm
+from user.models import UserProfile
+
 
 def signup(request):
     if request.method == 'GET':
@@ -20,13 +20,35 @@ def signup(request):
             try:
                 user = User.objects.create_user(
                     request.POST["username"], password=request.POST["password1"])
+                obj_user = user
                 user.save()
+                print(obj_user)
+                UserProfile.objects.create(user=obj_user)
                 login(request, user)
                 return redirect('index')
-            except IntegrityError:
-                return render(request, 'signup.html', {"form": UserCreationForm, "error": "Username already exists."})
+            except IntegrityError as exce:
+                return render(request, 'signup.html', {"form": UserCreationForm, "error": exce})
 
         return render(request, 'signup.html', {"form": UserCreationForm, "error": "Passwords did not match."})
+
+
+def update_profile(request):
+    if request.method == 'GET':
+        form = UserProfileForm(initial={
+            'phone': request.user.profile.phone,
+            'birth_date': request.user.profile.birth_date,
+            'profile_picture': request.user.profile.profile_picture
+        })
+        context = {'form':form}
+        return render(request, 'update_profile.html', context)
+    else:
+        try:
+            form = UserProfileForm(request.POST, request.FILES, instance=request.user.profile)
+            if form.is_valid():
+                form.save()
+                return redirect('update_profile')
+        except IntegrityError:
+            return render(request, 'update_profile.html', {"form": UserProfileForm, "error": "User Profile have an error."})
 
 def signin(request):
     if request.method == 'GET':
@@ -50,17 +72,21 @@ def signout(request):
 def settings(request):
     if request.method == 'POST':
         postdata = request.POST.copy()
+        #para que funcione esta parte, hay que ir al metodo UseChangeForm y modificar esta variable fields = ["username","first_name","last_name"]
+        #para que quede de esta manera
+        #tener en cuenta que si se usa virtualenv hay que cambiarlo en el UseChangeForm de ese folder
         form = UserChangeForm( postdata, instance=request.user )
-        if form.is_valid():
+        if form.is_valid():   
+            print(form)
             form.save()
-            form.clean()
         return redirect("index")
-    else:
+    elif request.method == 'GET':
         form = UserChangeForm(initial={
             'username':request.user.username,
             'first_name':request.user.first_name,
-            'last_name':request.user.last_name,
+            'last_name':request.user.last_name
             })
+        form.hidden_fields
         return render(request, 'update.html', {"form": form})
 
 @login_required

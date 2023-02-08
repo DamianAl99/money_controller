@@ -12,3 +12,6 @@ class Groups_Pay(models.Model):
 
   def __str__(self):
     return self.Title_groups + ' - ' + self.user.username
+
+class Add_Text_Admin(models.Model):
+  text = models.CharField(max_length=200)

@@ -17,15 +17,17 @@ def create_payout(request, pk):
         group = Groups_Pay.objects.filter(id=pk).first()
         payout = Payout.objects.filter(group=group)
         restar = 0
-        for pay in payout:
-            if pay.status:
-                restar += pay.price
-        total = group.budget - restar
         message = ""
-        print(((group.budget/100)*10))
+        for pay in payout:
+            if pay.status or pay.price <= group.budget:
+                restar += pay.price
+            else:
+                message = f"El monto a gastar no debe superar el presupuesto"
+        total = group.budget - restar
         if total<=((group.budget/100)*10):
             message = f"Queda 10% del presupuesto inicial, te recomendamos a partir de ahora agregar los gastos necesarios por prioridad :)"
-        #agregar mas msg de ayudas
+        if total <= 0:
+            message = f"No tienes suficiente presupuesto para realizar este gasto"
         return render(request, 'payouts.html', {"payouts": payout, "form": PayoutForm, "id_group":pk, "total":total, "alerta":message})
     else:
         try:

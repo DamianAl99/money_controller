@@ -1,9 +1,17 @@
 {% extends 'base.html' %} {% block content %}
-<img
+<img class="bg"
   src="https://img.freepik.com/foto-gratis/arreglo-elementos-financieros-calculadora-bloc-notas-vacio_23-2148749474.jpg?w=1060&t=st=1674098292~exp=1674098892~hmac=9e56d6aa429a06a12079046aec5ed75a6a0585f43218d59c1d42d71bc6cb0c4d"
   alt="">
-<div>
-  <h1>Hola {{user}}</h1>
+<div class="index">
+  {%if request.user.is_superuser%}
+  <div class="text-center">
+   {{text}}
+  </div>
+  {%endif%}
+  {% if request.user.is_authenticated %}
+  <h1>Hola {{request.user.first_name}}</h1>
+  <h2>Tel: {{request.user.profile.phone}}</h2>
+  {% endif %}
   <p>Esta app web te ayudará a llevar tus cuentas, ya sea guardando los ingresos, guardando los gastos
     tambien ayudandote a decifrar la situacion del presupuesto creado y tambien te dara
     recomendaciones financieras que se ajusten a tus cuentas
@@ -14,7 +22,7 @@
   </div>
 </div>
 <style>
-  img {
+  .bg {
     overflow: hidden;
     position: absolute;
     z-index: -2;
@@ -29,7 +37,7 @@
     margin: auto;
   }
 
-  h1 {
+  .index {
     text-align: center;
     margin-top: 40px;
   }
