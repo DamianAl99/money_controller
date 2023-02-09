@@ -2,13 +2,14 @@
 from django.contrib import admin
 from payments.views import signin, signup, signout, create_groups, groups_payout, settings, delete_task, task_detail, update_profile
 from expenses.views import create_payout, delete_payout, complete_payout
-from .views import go_index
+from .views import go_index, go_aboutme
 from django.urls import path
 from money_controller.settings import MEDIA_URL, MEDIA_ROOT
 from django.conf.urls.static import static
 
 urlpatterns = [
     path('', go_index, name='index'),
+    path('about_me/', go_aboutme, name='aboutme'),
     path('admin/', admin.site.urls),
     path('signin/', signin),
     path('signup/', signup),
