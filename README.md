@@ -23,6 +23,3 @@ Para el correcto funcionamiento del proyecto es necesario realizar estos cambios
 ![image](https://user-images.githubusercontent.com/67200281/217678904-c4669cca-1465-457e-8d4d-ad9a915b7cda.png)
 
 El admin creado hasta el momento tiene este User: damian Pass: damian123
-
-
-
