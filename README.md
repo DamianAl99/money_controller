@@ -9,6 +9,7 @@
 ## OBSERVACIONES IMPORTANTES:
 Para el correcto funcionamiento del proyecto es necesario realizar estos cambios:
 *cambiar esta linea de codigo en el archivo propio de django money_controller\venv\Lib\site-packages\django\contrib\auth\forms.py
+
     class Meta:
         model = User
         #fields = "__all__"
